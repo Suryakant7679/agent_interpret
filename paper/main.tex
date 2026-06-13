@@ -1,0 +1,66 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{Causal Circuits for Tool Selection in Instruction-Tuned Language Models}
+\author{Anonymous Authors}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Large language model agents must decide whether to answer directly or invoke
+external tools. We introduce ToolUseCircuitBench, a controlled benchmark for
+web search, calculation, Python execution, and direct answering, and study the
+internal mechanisms that mediate these choices. Our analysis combines
+behavioral evaluation, held-out linear probing, activation geometry,
+controlled activation patching, steering, and component ablation. Results and
+cross-model replication will be inserted only after all preregistered controls
+are complete.
+\end{abstract}
+
+\section{Introduction}
+Tool-selection errors are consequential but mechanistically underexplored.
+This work asks where tool decisions are represented, whether tool types occupy
+distinct directions, and which components causally mediate those decisions.
+
+\section{ToolUseCircuitBench}
+Describe dataset construction, template-family separation, OOD prompts,
+instruction-conflict prompts, label balance, and contamination controls.
+
+\section{Methods}
+\subsection{Behavioral evaluation}
+\subsection{Residual and MLP probing}
+\subsection{Tool directions}
+\subsection{Controlled activation patching}
+\subsection{Steering}
+\subsection{Neuron and attention-head ablation}
+\subsection{Statistical analysis}
+
+\section{Results}
+\subsection{Behavioral competence and errors}
+\subsection{Layer-wise emergence of tool information}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=.8\linewidth]{figures/layerwise_probe.pdf}
+  \caption{Held-out OOD probe performance by layer.}
+\end{figure}
+\subsection{Tool-direction geometry}
+\subsection{Causal patching with matched controls}
+\subsection{Necessity and sufficiency}
+\subsection{Cross-model replication}
+
+\section{Limitations}
+The controlled single-label setting simplifies real multi-step agents.
+Quantized inference may alter fine-grained causal effects. Component
+selectivity alone is not interpreted as causal evidence.
+
+\section{Conclusion}
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}

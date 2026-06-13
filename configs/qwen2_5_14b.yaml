@@ -1,0 +1,8 @@
+model:
+  name: Qwen/Qwen2.5-14B-Instruct
+  role: scaling
+  dtype: auto
+  device_map: auto
+experiment:
+  activation_position: final_prompt_token
+  reduced_analysis: true

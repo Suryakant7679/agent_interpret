@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tool-circuit-interpretability"
+version = "0.1.0"
+description = "Controlled benchmark and mechanistic analysis of LLM tool selection"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+research = [
+  "accelerate>=1.0",
+  "bitsandbytes>=0.45",
+  "matplotlib>=3.8",
+  "scikit-learn>=1.3",
+  "torch>=2.2",
+  "transformers>=4.46",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -1,0 +1,10 @@
+model:
+  name: Qwen/Qwen2.5-7B-Instruct
+  role: primary
+  dtype: auto
+  device_map: auto
+experiment:
+  activation_position: final_prompt_token
+  cache_residual_stream: true
+  cache_mlp_outputs: true
+  cache_attention_outputs: false

@@ -1,0 +1,11 @@
+model:
+  name: Qwen/Qwen2.5-Coder-7B-Instruct
+  role: code_specialized
+  dtype: auto
+  device_map: auto
+experiment:
+  activation_position: final_prompt_token
+  labels:
+    - calculator
+    - python
+    - none

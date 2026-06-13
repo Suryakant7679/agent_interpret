@@ -1,0 +1,10 @@
+model:
+  name: qwen3.5:9b
+  role: local_behavioral_validation
+  backend: ollama
+  ollama_models: /mnt/DATADRIVE0/ollama-models
+  quantization: Q4_K_M
+  parameter_class: 9.7B
+experiment:
+  behavioral_only: true
+  note: Ollama does not expose the internal activations needed for causal analysis.
