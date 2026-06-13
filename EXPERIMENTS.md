@@ -58,7 +58,15 @@ python scripts/12_compare_patching_controls.py \
   --output-dir outputs/patching/controlled_comparison
 ```
 
-Repeat all three conditions with seeds `7`, `21`, `42`, `84`, and `123`.
+Seed `42` is produced by Stage 1. Run the four remaining seeds and create an
+automatic checkpoint summary with:
+
+```bash
+bash scripts/run_qwen_patching_seeds.sh
+```
+
+The checkpoint passes only when
+`outputs/patching/seeds/summary.json` reports `"all_seeds_passed": true`.
 
 ## 1b. Counterfactual challenge set
 
