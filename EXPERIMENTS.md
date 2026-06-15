@@ -258,3 +258,17 @@ pipeline on:
 
 The RTX 3060 may run 7B models in 4-bit. The 14B analysis will likely require
 CPU offload, a larger GPU, or rented compute.
+
+### Qwen2.5-Coder-7B local replication
+
+Run the complete reduced pipeline on the RTX 3060:
+
+```bash
+mkdir -p outputs/logs
+bash scripts/run_qwen_coder_7b.sh 2>&1 \
+  | tee outputs/logs/qwen2_5_coder_7b.log
+```
+
+The final report is `outputs/qwen2_5_coder_7b_summary.json`. The run includes
+test, OOD, and lexical-control behavior; held-out residual and MLP probes;
+tool directions; and paired controlled residual patching.
