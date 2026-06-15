@@ -1,0 +1,3 @@
+model,component,mean_effect,ci_low,ci_high,random_control,p,flip_rate
+Qwen2.5-7B,Neurons,0.23828125,0.1796875,0.29296875,0.0625,1.999980000199998e-05,0.0
+Qwen2.5-7B,Heads,-3.73828125,-4.1015625,-3.390625,0.5,9.99990000099999e-06,1.0

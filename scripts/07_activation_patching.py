@@ -50,16 +50,27 @@ def main() -> None:
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     positive_ids = tokenizer.encode(args.positive_label, add_special_tokens=False)
     negative_ids = tokenizer.encode(args.negative_label, add_special_tokens=False)
-    if len(positive_ids) != 1 or len(negative_ids) != 1:
+    if not positive_ids or not negative_ids:
         raise SystemExit(
-            "This first-token patching script requires single-token labels. "
+            "Labels must tokenize to at least one token. "
             f"{args.positive_label}={positive_ids}, {args.negative_label}={negative_ids}"
         )
     positive_id = positive_ids[0]
     negative_id = negative_ids[0]
+    if positive_id == negative_id:
+        raise SystemExit(
+            "Positive and negative labels share the same first token, so a "
+            "first-token prefix-logit contrast is not identifiable."
+        )
+    if len(positive_ids) > 1 or len(negative_ids) > 1:
+        print(
+            "Using first-token prefix logits for multi-token labels: "
+            f"{args.positive_label}={positive_ids}, "
+            f"{args.negative_label}={negative_ids}"
+        )
     source_ids = tokenizer.encode(source_label, add_special_tokens=False)
-    if len(source_ids) != 1:
-        raise SystemExit(f"Source label must be one token; got {source_ids}")
+    if not source_ids:
+        raise SystemExit(f"Source label tokenized to an empty sequence: {source_label}")
     source_id = source_ids[0]
 
     model_kwargs = {"torch_dtype": "auto", "device_map": args.device_map}
@@ -242,9 +253,11 @@ def main() -> None:
         "seed": args.seed,
         "pair_count": pair_count,
         "token_ids": {
-            args.positive_label: positive_id,
-            args.negative_label: negative_id,
+            args.positive_label: positive_ids,
+            args.negative_label: negative_ids,
+            source_label: source_ids,
         },
+        "metric": "positive_label_first_token_prefix_minus_negative_label_first_token_prefix",
         "summary": summary,
         "pairs": pair_results,
     }

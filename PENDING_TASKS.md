@@ -69,7 +69,7 @@ expected output exists and has been inspected.
 
 ## Pending: Local Cross-Model Replication
 
-- [ ] **LOCAL** Run Qwen2.5-Coder-7B behavioral evaluation and reduced causal
+- [x] **LOCAL** Run Qwen2.5-Coder-7B behavioral evaluation and reduced causal
   analysis in 4-bit.
   - Focus: calculator versus Python decisions.
   - Checkpoint: compare Python-tool bias against general Qwen2.5-7B.
@@ -94,19 +94,19 @@ expected output exists and has been inspected.
 
 ## Pending: Local Statistics And Figures
 
-- [ ] **LOCAL / CPU** Aggregate completed multi-seed experiments.
-- [ ] **LOCAL / CPU** Apply multiple-comparison corrections where relevant.
+- [x] **LOCAL / CPU** Aggregate completed multi-seed experiments.
+- [x] **LOCAL / CPU** Apply multiple-comparison corrections where relevant.
 - [ ] **LOCAL / CPU** Report bootstrap confidence intervals and paired tests
   consistently.
-- [ ] **LOCAL / CPU** Produce behavioral confusion matrices.
-- [ ] **LOCAL / CPU** Produce layer-wise probe figures.
-- [ ] **LOCAL / CPU** Produce controlled patching curves.
-- [ ] **LOCAL / CPU** Produce steering dose-response curves.
-- [ ] **LOCAL / CPU** Produce L26H4 necessity and specificity figures.
-- [ ] **LOCAL / CPU** Produce attention-pattern visualization.
+- [x] **LOCAL / CPU** Produce behavioral confusion matrices.
+- [x] **LOCAL / CPU** Produce layer-wise probe figures.
+- [x] **LOCAL / CPU** Produce controlled patching curves.
+- [x] **LOCAL / CPU** Produce steering dose-response curves.
+- [x] **LOCAL / CPU** Produce L26H4 necessity and specificity figures.
+- [x] **LOCAL / CPU** Produce attention-pattern visualization.
 - [ ] **LARGE GPU / ANALYSIS** Produce cross-model comparison tables after all
   required model runs finish.
-- [ ] **LOCAL / CPU** Copy completed figures into `paper/figures/`.
+- [x] **LOCAL / CPU** Copy completed figures into `paper/figures/`.
 
 ## Pending: Local Paper Work
 

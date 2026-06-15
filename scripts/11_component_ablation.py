@@ -59,9 +59,18 @@ def main() -> None:
 
     rng = random.Random(args.seed)
     tokenizer = AutoTokenizer.from_pretrained(args.model)
-    label_token_ids = {
-        label: tokenizer.encode(label, add_special_tokens=False)[0] for label in LABELS
+    label_token_sequences = {
+        label: tokenizer.encode(label, add_special_tokens=False) for label in LABELS
     }
+    if any(not ids for ids in label_token_sequences.values()):
+        raise SystemExit("One or more tool labels tokenized to an empty sequence.")
+    label_token_ids = {
+        label: ids[0] for label, ids in label_token_sequences.items()
+    }
+    if len(set(label_token_ids.values())) != len(label_token_ids):
+        raise SystemExit(
+            "Tool labels do not have distinct first-token prefixes for this tokenizer."
+        )
 
     kwargs = {"torch_dtype": "auto", "device_map": "auto"}
     if args.load_in_4bit:
@@ -215,6 +224,7 @@ def main() -> None:
         "evaluation_label": evaluation_label,
         "metric": "evaluation_label_first_token_minus_strongest_competing_label_first_token",
         "label_token_ids": label_token_ids,
+        "label_token_sequences": label_token_sequences,
         "effect_sign": args.effect_sign,
         "top_k": args.top_k,
         "samples": len(examples),

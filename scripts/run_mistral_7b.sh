@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-export MODEL="Qwen/Qwen2.5-Coder-7B-Instruct"
-export PREFIX="qwen2_5_coder_7b"
+export MODEL="mistralai/Mistral-7B-Instruct-v0.3"
+export PREFIX="mistral_7b_instruct_v0_3"
 
 bash scripts/run_reduced_7b_pipeline.sh

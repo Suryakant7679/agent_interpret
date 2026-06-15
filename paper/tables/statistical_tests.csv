@@ -1,0 +1,5 @@
+family,model,comparison,layer,effect_delta,raw_p,holm_p,significant_0_05
+controlled_patching,Qwen2.5-7B,calculator_vs_python,27,9.18359375,9.99990000099999e-06,3.999960000399996e-05,True
+controlled_patching,Qwen2.5-7B,calculator_vs_none,27,6.84375,9.99990000099999e-06,3.999960000399996e-05,True
+controlled_patching,Qwen2.5-Coder-7B,calculator_vs_python,27,9.265625,6.999930000699993e-05,0.00013999860001399987,True
+controlled_patching,Qwen2.5-Coder-7B,calculator_vs_none,27,4.1953125,6.999930000699993e-05,0.00013999860001399987,True

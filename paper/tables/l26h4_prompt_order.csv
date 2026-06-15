@@ -1,0 +1,9 @@
+order,calculator_position,samples,mean_effect,flip_rate
+web_search > calculator > python > none,1,32,-2.9765625,0.78125
+python > calculator > none > web_search,1,32,-2.546875,0.78125
+web_search > none > python > calculator,3,32,-2.60546875,0.0
+none > web_search > calculator > python,2,32,-2.890625,0.78125
+none > python > calculator > web_search,2,32,-2.33203125,0.40625
+python > web_search > none > calculator,3,32,-2.8125,0.78125
+calculator > none > web_search > python,0,32,-2.87890625,0.0
+python > none > calculator > web_search,2,32,-2.53125,0.71875

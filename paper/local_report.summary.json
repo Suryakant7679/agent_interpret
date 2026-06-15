@@ -1,0 +1,25 @@
+{
+  "models_included": [
+    "Qwen2.5-7B",
+    "Qwen2.5-Coder-7B"
+  ],
+  "model_table_rows": 2,
+  "statistical_tests": 4,
+  "figures": [
+    "behavior_confusion_matrices.png",
+    "component_ablation_comparison.png",
+    "controlled_patching_comparison.png",
+    "l26h4_attention_tokens.png",
+    "l26h4_specificity.png",
+    "layerwise_probe_comparison.png",
+    "multiseed_replication.png",
+    "steering_dose_response.png"
+  ],
+  "tables": [
+    "component_ablation_comparison.csv",
+    "l26h4_prompt_order.csv",
+    "model_comparison.csv",
+    "multiseed_summary.csv",
+    "statistical_tests.csv"
+  ]
+}

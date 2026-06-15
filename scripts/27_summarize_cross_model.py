@@ -75,7 +75,8 @@ def main() -> None:
         "checkpoint_note": (
             "Inspect behavior competence before interpreting probes or patching. "
             "A causal replication requires positive treatment deltas against "
-            "both controls on paired targets."
+            "both controls on paired targets. For multi-token labels, patching "
+            "uses the recorded first-token prefix-logit contrast."
         ),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

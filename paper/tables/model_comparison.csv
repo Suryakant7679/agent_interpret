@@ -1,0 +1,3 @@
+calculator_recall,calculator_to_python,lexical_accuracy,lexical_macro_f1,mlp_best_layer,mlp_best_macro_f1,model,patching_best_layer,patching_delta_none,patching_delta_python,patching_effect,python_recall,residual_best_layer,residual_best_macro_f1
+0.0,100,0.665,0.5931021947031799,12,1.0,Qwen2.5-7B,27,6.84375,9.18359375,4.70703125,1.0,27,0.9054010388785677
+0.0,100,0.5475,0.49470122533669875,9,1.0,Qwen2.5-Coder-7B,27,4.1953125,9.265625,3.5,1.0,11,1.0

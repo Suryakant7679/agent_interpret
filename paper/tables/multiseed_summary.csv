@@ -1,0 +1,9 @@
+experiment,seed,effect,passed
+patching,7,4.93359375,True
+patching,21,4.640625,True
+patching,84,5.3515625,True
+patching,123,5.1328125,True
+L26H4,7,-2.890625,True
+L26H4,21,-2.953125,True
+L26H4,84,-2.83984375,True
+L26H4,123,-2.93359375,True

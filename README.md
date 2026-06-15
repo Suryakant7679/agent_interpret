@@ -137,3 +137,12 @@ The locally available Qwen 3.5 model is useful for benchmark and behavioral
 pipeline validation, but it does not replace the paper's primary model.
 See `PENDING_TASKS.md` for the authoritative **LOCAL** versus **LARGE GPU**
 execution split.
+
+Run every remaining RTX 3060-compatible model stage and regenerate the local
+paper figures with:
+
+```bash
+bash scripts/run_all_local_7b.sh
+```
+
+The command is resumable: completed model/component summaries are skipped.

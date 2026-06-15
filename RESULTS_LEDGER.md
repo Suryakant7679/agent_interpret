@@ -20,6 +20,17 @@ controls or replication.
 - The model sends all 100 calculator prompts to Python. It correctly selects
   Python for all 100 Python prompts, selects none for 81/100 none prompts, and
   selects web search for 85/100 web-search prompts.
+- Qwen2.5-Coder-7B reaches perfect accuracy on the 1,000-prompt standard test,
+  OOD accuracy 0.794, and lexical-control accuracy 0.5475 in 4-bit inference.
+  Its OOD calculator recall is 0.184, while all 100 lexical-control calculator
+  prompts are again routed to Python.
+- Qwen2.5-Coder-7B residual patching replicates the late calculator-specific
+  causal effect. At layer 27, calculator-source patching has mean effect 3.500
+  logits and flips all 16 targets, exceeding Python controls by 9.266 logits
+  and none controls by 4.195 logits (paired permutation p = 0.00007 for both).
+- On held-out lexical-control prompts, the Coder residual probe reaches
+  macro-F1 1.0 first at layer 11 and the MLP-output probe reaches 1.0 first at
+  layer 9.
 - A residual probe trained on the original training templates and evaluated on
   256 balanced lexical-control prompts reaches its best macro-F1 of 0.905 at
   layer 27. Layer 0 is at 0.100, the first-five-layer mean is 0.451, and the

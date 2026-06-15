@@ -272,3 +272,28 @@ bash scripts/run_qwen_coder_7b.sh 2>&1 \
 The final report is `outputs/qwen2_5_coder_7b_summary.json`. The run includes
 test, OOD, and lexical-control behavior; held-out residual and MLP probes;
 tool directions; and paired controlled residual patching.
+
+The master local runner also extracts true MLP neurons and attention-head
+outputs for each 7B replication model, ranks them, and runs top-20 neuron/head
+ablations against matched random controls.
+
+### Complete RTX 3060 pipeline
+
+The master runner skips model summaries that already exist, runs the remaining
+7B model, and regenerates all local tables and figures:
+
+```bash
+bash scripts/run_all_local_7b.sh
+```
+
+For the current state, this skips the completed Qwen2.5-Coder-7B run, executes
+Mistral-7B-Instruct-v0.3 in 4-bit, and then writes:
+
+- `paper/figures/*.png` and `paper/figures/*.pdf`
+- `paper/tables/*.csv`
+- `paper/local_report.summary.json`
+
+Mistral tokenizes `calculator` into multiple tokens. Its patching output
+therefore records and uses the calculator-versus-Python first-token
+prefix-logit contrast; do not compare its raw effect magnitude as though the
+tokenization were identical to Qwen.
