@@ -1,15 +1,18 @@
 {
   "total_rows": 400,
-  "reviewed_rows": 0,
-  "reviewed_per_label": {},
-  "issues": {
-    "incorrect_labels": 0,
-    "unnatural_wording": 0,
-    "ambiguous": 0,
-    "duplicates": 0
+  "reviewed_rows": 400,
+  "reviewed_per_label": {
+    "calculator": 100,
+    "none": 100,
+    "python": 100,
+    "web_search": 100
   },
-  "draft_rows": 400,
-  "human_verified": 0,
-  "audit_complete": false,
-  "human_audit_complete": false
+  "incorrect_labels": 0,
+  "unnatural_wording": 0,
+  "ambiguous": 0,
+  "duplicates": 0,
+  "draft_rows": 0,
+  "human_verified": 400,
+  "audit_complete": true,
+  "human_audit_complete": true
 }

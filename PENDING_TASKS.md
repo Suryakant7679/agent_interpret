@@ -56,12 +56,11 @@ expected output exists and has been inspected.
   - Output: `outputs/behavior/qwen2_5_7b_lexical_control.*`
   - Output: `outputs/probes/qwen2_5_7b_lexical_control/`
 
-- [ ] **LOCAL / HUMAN** Verify the pre-filled benchmark review worksheet.
+- [x] **LOCAL / HUMAN** Verify the benchmark review worksheet.
   - Review at least 100 prompts per class.
   - Correct draft judgments about ambiguity, labels, wording, or duplicates.
   - Output: `paper/benchmark_audit.csv`
-  - Status: draft values are provided for convenience, but no row counts as
-    reviewed until it is marked `human_verified=yes`.
+  - Status: all 400 prompts are marked `human_verified=yes`.
 
 - [ ] **LARGE GPU** Replicate key L26H4 and steering effects without 4-bit
   quantization.
