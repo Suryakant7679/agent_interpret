@@ -109,6 +109,23 @@ Inspect `outputs/probes/qwen2_5_7b_lexical_control/summary.json` before marking
 the evaluation checkpoint complete. Probe performance is a scientific result,
 so the summary reports early and late layers without imposing a pass threshold.
 
+Complete the required 100-prompts-per-class manual audit with the resumable
+terminal reviewer:
+
+```bash
+python scripts/24_review_benchmark.py
+```
+
+Press `q` to pause safely and run the same command to resume. After all 400
+prompts are reviewed, validate the checkpoint:
+
+```bash
+python scripts/25_validate_benchmark_audit.py
+```
+
+The audit is complete only when `paper/benchmark_audit.summary.json` reports
+`"complete": true`.
+
 ## 1b. Counterfactual challenge set
 
 Run all Stage 2 conditions with:
