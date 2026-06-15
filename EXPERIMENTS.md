@@ -127,14 +127,14 @@ The audit is complete only when `paper/benchmark_audit.summary.json` reports
 `"audit_complete": true`. The independent human-review requirement is met only
 when `"human_audit_complete": true`.
 
-For an editable AI-assisted first pass, run:
+To regenerate the editable pre-filled review worksheet, run:
 
 ```bash
-python scripts/26_ai_review_benchmark.py
+python scripts/26_prepare_review_draft.py
 ```
 
-This fills all rows but records `review_method=ai_first_pass` and
-`human_verified=no`; it must not be described as an independent human audit.
+This fills draft values but records `review_method=prefilled_draft` and
+`human_verified=no`. Draft rows do not count toward audit completion.
 
 ## 1b. Counterfactual challenge set
 

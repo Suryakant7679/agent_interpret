@@ -28,7 +28,8 @@ def main() -> None:
     reviewed = [
         row
         for row in rows
-        if row["label_correct"] in valid
+        if row.get("human_verified") == "yes"
+        and row["label_correct"] in valid
         and row["natural_wording"] in valid
         and row["ambiguous"] in valid
         and row["duplicate"] in valid
@@ -42,8 +43,8 @@ def main() -> None:
         "unnatural_wording": sum(row["natural_wording"] == "no" for row in reviewed),
         "ambiguous": sum(row["ambiguous"] == "yes" for row in reviewed),
         "duplicates": sum(row["duplicate"] == "yes" for row in reviewed),
-        "ai_reviewed": sum(
-            row.get("review_method") == "ai_first_pass" for row in reviewed
+        "draft_rows": sum(
+            row.get("review_method") == "prefilled_draft" for row in rows
         ),
         "human_verified": sum(
             row.get("human_verified") == "yes" for row in reviewed
@@ -54,9 +55,7 @@ def main() -> None:
             for label in ("web_search", "calculator", "python", "none")
         ),
     }
-    result["human_audit_complete"] = (
-        result["audit_complete"] and result["human_verified"] == 400
-    )
+    result["human_audit_complete"] = result["audit_complete"]
     args.summary.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))
     if not result["audit_complete"]:

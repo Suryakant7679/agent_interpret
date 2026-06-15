@@ -50,7 +50,7 @@ LABEL_RULES = {
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Create a clearly labeled AI-assisted first-pass benchmark audit"
+        description="Create a pre-filled worksheet for later human verification"
     )
     parser.add_argument(
         "--source",
@@ -108,30 +108,32 @@ def main() -> None:
                 "ambiguous": "no" if label_correct else "yes",
                 "duplicate": "yes" if duplicate else "no",
                 "notes": " ".join(notes),
-                "reviewer": "Codex AI",
-                "review_method": "ai_first_pass",
+                "reviewer": "",
+                "review_method": "prefilled_draft",
                 "human_verified": "no",
             }
         )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=FIELDS)
+        writer = csv.DictWriter(handle, fieldnames=FIELDS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
     counts = Counter(row["label"] for row in rows)
     summary = {
         "total_rows": len(rows),
-        "reviewed_rows": len(rows),
-        "reviewed_per_label": dict(sorted(counts.items())),
+        "reviewed_rows": 0,
+        "reviewed_per_label": {},
+        "draft_rows_per_label": dict(sorted(counts.items())),
         "incorrect_labels": sum(row["label_correct"] == "no" for row in rows),
         "unnatural_wording": sum(row["natural_wording"] == "no" for row in rows),
         "ambiguous": sum(row["ambiguous"] == "yes" for row in rows),
         "duplicates": sum(row["duplicate"] == "yes" for row in rows),
-        "reviewer": "Codex AI",
-        "review_method": "ai_first_pass",
-        "audit_complete": len(rows) == 400,
+        "reviewer": "",
+        "review_method": "prefilled_draft",
+        "draft_rows": len(rows),
+        "audit_complete": False,
         "human_verified": 0,
         "human_audit_complete": False,
     }

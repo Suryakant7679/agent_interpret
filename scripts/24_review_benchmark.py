@@ -33,7 +33,7 @@ def load_rows(path: Path) -> list[dict[str, str]]:
 def save_rows(path: Path, rows: list[dict[str, str]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=FIELDS)
+        writer = csv.DictWriter(handle, fieldnames=FIELDS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -76,7 +76,8 @@ def summary(rows: list[dict[str, str]]) -> dict:
     reviewed = [
         row
         for row in rows
-        if row["label_correct"] in VALID
+        if row.get("human_verified") == "yes"
+        and row["label_correct"] in VALID
         and row["natural_wording"] in VALID
         and row["ambiguous"] in VALID
     ]
@@ -92,8 +93,8 @@ def summary(rows: list[dict[str, str]]) -> dict:
         "reviewed_rows": len(reviewed),
         "reviewed_per_label": dict(sorted(per_label.items())),
         "issues": issues,
-        "ai_reviewed": sum(
-            row.get("review_method") == "ai_first_pass" for row in reviewed
+        "draft_rows": sum(
+            row.get("review_method") == "prefilled_draft" for row in rows
         ),
         "human_verified": sum(
             row.get("human_verified") == "yes" for row in reviewed
