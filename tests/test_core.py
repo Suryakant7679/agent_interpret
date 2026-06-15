@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections import Counter
+
 from tool_circuits.dataset import build_benchmark
 from tool_circuits.io import read_jsonl
 from tool_circuits.metrics import classification_metrics
@@ -97,3 +99,28 @@ def test_select_patching_rows() -> None:
     )
     assert {row["id"] for row in selected_sources} == {"c1", "c2"}
     assert {row["id"] for row in selected_targets} == {"e1", "e2"}
+
+
+def test_lexical_control_generator_is_balanced_and_uses_shared_frame() -> None:
+    import importlib.util
+    from pathlib import Path
+
+    script = Path(__file__).parents[1] / "scripts" / "21_generate_lexical_control.py"
+    spec = importlib.util.spec_from_file_location("lexical_control_generator", script)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    rows = module.build_rows(groups=3, seed=7)
+    assert len(rows) == 12
+    assert Counter(row["label"] for row in rows) == Counter(
+        {"web_search": 3, "calculator": 3, "python": 3, "none": 3}
+    )
+    assert len({row["query"] for row in rows}) == len(rows)
+    assert all(row["query"].startswith(module.PREFIX) for row in rows)
+    assert all(row["query"].endswith(module.SUFFIX) for row in rows)
+    assert not any(
+        phrase in row["query"].lower()
+        for row in rows
+        for phrase in ("today", "exact result", "each value")
+    )

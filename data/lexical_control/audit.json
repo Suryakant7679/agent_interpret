@@ -1,0 +1,42 @@
+{
+  "samples": 400,
+  "groups": 100,
+  "label_counts": {
+    "calculator": 100,
+    "none": 100,
+    "python": 100,
+    "web_search": 100
+  },
+  "unique_queries": 400,
+  "banned_phrase_hits": {
+    "today": [],
+    "exact result": [],
+    "each value": []
+  },
+  "malformed_groups": {},
+  "framing_failures": [],
+  "word_count_by_label": {
+    "web_search": {
+      "mean": 47.12,
+      "min": 47,
+      "max": 48
+    },
+    "calculator": {
+      "mean": 49,
+      "min": 49,
+      "max": 49
+    },
+    "python": {
+      "mean": 47.91,
+      "min": 46,
+      "max": 50
+    },
+    "none": {
+      "mean": 43.62,
+      "min": 43,
+      "max": 45
+    }
+  },
+  "automatic_checks_passed": true,
+  "manual_review_required": true
+}

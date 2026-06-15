@@ -85,6 +85,18 @@ The checkpoint passes only when
 `outputs/ablations/l26h4_seeds/summary.json` reports
 `"all_seeds_passed": true`.
 
+## 1d. Lexical-control benchmark
+
+Build the matched 400-prompt lexical-control set and its review sheet:
+
+```bash
+bash scripts/run_lexical_control_build.sh
+```
+
+Inspect `data/lexical_control/audit.json`, then complete the review columns in
+`data/lexical_control/manual_review.csv`. Do not mark the benchmark checkpoint
+complete from automatic checks alone.
+
 ## 1b. Counterfactual challenge set
 
 Run all Stage 2 conditions with:

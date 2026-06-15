@@ -35,7 +35,7 @@ expected output exists and has been inspected.
   - Checkpoint: unrelated tool decisions remain stable.
   - Output: `outputs/ablations/l26h4_seeds/`
 
-- [ ] Build a stricter lexically controlled benchmark.
+- [x] Build a stricter lexically controlled benchmark.
   - Remove class-specific boilerplate such as `today`, `exact result`, and
     `each value`.
   - Checkpoint: labels remain balanced and prompts pass manual review.

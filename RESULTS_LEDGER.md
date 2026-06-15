@@ -5,6 +5,13 @@ controls or replication.
 
 ## Completed
 
+- The lexical-control benchmark contains 400 matched prompts in 100 quartets,
+  balanced at 100 prompts per tool label. All prompts use a shared outer frame,
+  are unique, and exclude the identified boilerplate phrases `today`, `exact
+  result`, and `each value`.
+- Mean prompt lengths are closely matched: 47.12 words for web search, 49.00
+  for calculator, 47.91 for Python, and 43.62 for none. This benchmark has not
+  yet been evaluated and therefore supports no behavioral or probe claim.
 - Qwen2.5-7B-Instruct smoke behavior: accuracy 0.90, macro-F1 0.896.
 - Smoke errors: all four large-multiplication prompts selected Python instead
   of calculator.
