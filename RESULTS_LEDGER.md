@@ -24,6 +24,13 @@ controls or replication.
 - At layer 27, calculator-source patching exceeds Python-source patching by
   9.184 logits and none-source patching by 6.844 logits; paired permutation
   p-values are below 0.00001 for both comparisons.
+- Controlled patching replicates across independently sampled pairs at seeds
+  7, 21, 42, 84, and 123. Layer 27 is the strongest treatment layer for every
+  seed, with calculator-source mean effects from 4.641 to 5.352 logits and a
+  100% target flip rate in every run.
+- Across the four additional seeds, the layer-27 treatment effect averages
+  5.015 logits. It exceeds Python controls by an average of 9.341 logits and
+  none controls by 6.721 logits; every seed passes both comparisons.
 - Calculator-source patching reaches flip rates of 0.969 at layers 22 and 26,
   while both source controls have zero flips at those layers.
 - Matched challenge behavior reaches accuracy 0.9825 and macro-F1 0.9825 over
@@ -123,11 +130,8 @@ controls or replication.
 
 - No individual MLP neuron has yet shown replicated causal necessity.
 - The representation generalizes beyond distinctive synthetic templates.
-- The result replicates across seeds, scales, or model families.
+- The result has not yet replicated across scales or model families.
 - Quantized and full-precision interventions have equivalent effects.
-- The exact late-layer effect is stable across independently sampled source
-  and target pairs; the completed controlled experiment currently uses one
-  seed.
 - The challenge probe is not valid evidence for late emergence: residual
   macro-F1 is already 1.0 at layer 1 and MLP-output macro-F1 is 1.0 at layer
   0, consistent with class-specific lexical frames in the challenge prompts.
@@ -140,7 +144,6 @@ controls or replication.
 
 ## Required before submission
 
-- Repeat controlled 32-pair patching across multiple seeds.
 - Counterfactual challenge-set behavior and probing.
 - Replace the current challenge probe with stricter lexical/template controls
   before using it to make claims about layer-wise emergence.

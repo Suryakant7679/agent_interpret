@@ -1,6 +1,6 @@
 # Paper Checkpoint
 
-Last updated: 2026-06-13
+Last updated: 2026-06-15
 
 Use this file as the single progress tracker. Check an item only after its
 expected output exists and has been inspected.
@@ -26,7 +26,7 @@ expected output exists and has been inspected.
 
 ## Pending: Qwen2.5-7B Robustness
 
-- [ ] Repeat controlled 32-pair patching with seeds `7`, `21`, `84`, and `123`.
+- [x] Repeat controlled 32-pair patching with seeds `7`, `21`, `84`, and `123`.
   - Checkpoint: treatment remains stronger than Python and none controls.
   - Output: `outputs/patching/seeds/`
 

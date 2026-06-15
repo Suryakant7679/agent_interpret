@@ -62,7 +62,9 @@ Seed `42` is produced by Stage 1. Run the four remaining seeds and create an
 automatic checkpoint summary with:
 
 ```bash
-bash scripts/run_qwen_patching_seeds.sh
+mkdir -p outputs/patching/seeds
+bash scripts/run_qwen_patching_seeds.sh 2>&1 \
+  | tee outputs/patching/seeds/run.log
 ```
 
 The checkpoint passes only when
