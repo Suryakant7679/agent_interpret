@@ -124,7 +124,17 @@ python scripts/25_validate_benchmark_audit.py
 ```
 
 The audit is complete only when `paper/benchmark_audit.summary.json` reports
-`"complete": true`.
+`"audit_complete": true`. The independent human-review requirement is met only
+when `"human_audit_complete": true`.
+
+For an editable AI-assisted first pass, run:
+
+```bash
+python scripts/26_ai_review_benchmark.py
+```
+
+This fills all rows but records `review_method=ai_first_pass` and
+`human_verified=no`; it must not be described as an independent human audit.
 
 ## 1b. Counterfactual challenge set
 

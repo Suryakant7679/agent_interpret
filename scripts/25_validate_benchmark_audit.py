@@ -42,16 +42,25 @@ def main() -> None:
         "unnatural_wording": sum(row["natural_wording"] == "no" for row in reviewed),
         "ambiguous": sum(row["ambiguous"] == "yes" for row in reviewed),
         "duplicates": sum(row["duplicate"] == "yes" for row in reviewed),
-        "complete": len(reviewed) == 400
+        "ai_reviewed": sum(
+            row.get("review_method") == "ai_first_pass" for row in reviewed
+        ),
+        "human_verified": sum(
+            row.get("human_verified") == "yes" for row in reviewed
+        ),
+        "audit_complete": len(reviewed) == 400
         and all(
             counts[label] >= 100
             for label in ("web_search", "calculator", "python", "none")
         ),
     }
+    result["human_audit_complete"] = (
+        result["audit_complete"] and result["human_verified"] == 400
+    )
     args.summary.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))
-    if not result["complete"]:
-        raise SystemExit("Manual benchmark audit is incomplete.")
+    if not result["audit_complete"]:
+        raise SystemExit("Benchmark audit is incomplete.")
 
 
 if __name__ == "__main__":

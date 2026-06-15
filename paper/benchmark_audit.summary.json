@@ -1,0 +1,18 @@
+{
+  "total_rows": 400,
+  "reviewed_rows": 400,
+  "reviewed_per_label": {
+    "calculator": 100,
+    "none": 100,
+    "python": 100,
+    "web_search": 100
+  },
+  "incorrect_labels": 0,
+  "unnatural_wording": 0,
+  "ambiguous": 0,
+  "duplicates": 0,
+  "ai_reviewed": 400,
+  "human_verified": 0,
+  "audit_complete": true,
+  "human_audit_complete": false
+}

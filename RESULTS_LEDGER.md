@@ -9,6 +9,12 @@ controls or replication.
   balanced at 100 prompts per tool label. All prompts use a shared outer frame,
   are unique, and exclude the identified boilerplate phrases `today`, `exact
   result`, and `each value`.
+- An AI-assisted first-pass audit reviewed all 400 lexical-control prompts.
+  It found no incorrect assigned labels, duplicate queries, or ambiguous tool
+  choices. All rows remain marked `human_verified=no`; this is not an
+  independent human audit.
+- The audit records the shared case context as mildly artificial synthetic
+  wording, although every prompt passes the grammatical structure check.
 - Mean prompt lengths are closely matched: 47.12 words for web search, 49.00
   for calculator, 47.91 for Python, and 43.62 for none.
 - On the lexical-control benchmark, Qwen2.5-7B reaches accuracy 0.665 and

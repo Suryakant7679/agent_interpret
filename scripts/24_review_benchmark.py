@@ -18,6 +18,9 @@ FIELDS = [
     "ambiguous",
     "duplicate",
     "notes",
+    "reviewer",
+    "review_method",
+    "human_verified",
 ]
 VALID = {"yes", "no"}
 
@@ -49,6 +52,9 @@ def initialize(source: Path) -> list[dict[str, str]]:
             "ambiguous": "",
             "duplicate": "yes" if query_counts[row["query"]] > 1 else "no",
             "notes": "",
+            "reviewer": "",
+            "review_method": "",
+            "human_verified": "no",
         }
         for row in source_rows
     ]
@@ -81,16 +87,26 @@ def summary(rows: list[dict[str, str]]) -> dict:
         "ambiguous": sum(row["ambiguous"] == "yes" for row in reviewed),
         "duplicates": sum(row["duplicate"] == "yes" for row in rows),
     }
-    return {
+    result = {
         "total_rows": len(rows),
         "reviewed_rows": len(reviewed),
         "reviewed_per_label": dict(sorted(per_label.items())),
         "issues": issues,
-        "complete": len(reviewed) == len(rows) and all(
+        "ai_reviewed": sum(
+            row.get("review_method") == "ai_first_pass" for row in reviewed
+        ),
+        "human_verified": sum(
+            row.get("human_verified") == "yes" for row in reviewed
+        ),
+        "audit_complete": len(reviewed) == len(rows) and all(
             per_label[label] >= 100
             for label in ("web_search", "calculator", "python", "none")
         ),
     }
+    result["human_audit_complete"] = (
+        result["audit_complete"] and result["human_verified"] == len(rows)
+    )
+    return result
 
 
 def main() -> None:
@@ -128,11 +144,7 @@ def main() -> None:
 
     try:
         for index, row in enumerate(rows):
-            if (
-                row["label_correct"] in VALID
-                and row["natural_wording"] in VALID
-                and row["ambiguous"] in VALID
-            ):
+            if row.get("human_verified") == "yes":
                 continue
             print("\n" + "=" * 78)
             print(f"Prompt {index + 1}/{len(rows)} | label: {row['label']}")
@@ -142,6 +154,9 @@ def main() -> None:
             row["natural_wording"] = ask("Is the wording natural enough? [y/n/q] ")
             row["ambiguous"] = ask("Is the tool choice ambiguous? [y/n/q] ")
             row["notes"] = input("Notes (optional): ").strip()
+            row["reviewer"] = input("Reviewer name (optional): ").strip() or "human"
+            row["review_method"] = "manual"
+            row["human_verified"] = "yes"
             save_rows(args.output, rows)
             result = summary(rows)
             args.summary.write_text(

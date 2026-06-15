@@ -56,12 +56,19 @@ expected output exists and has been inspected.
   - Output: `outputs/behavior/qwen2_5_7b_lexical_control.*`
   - Output: `outputs/probes/qwen2_5_7b_lexical_control/`
 
-- [ ] **LOCAL / HUMAN** Manually audit benchmark labels and prompt quality.
-  - Review at least 100 prompts per class.
-  - Record ambiguity, incorrect labels, unnatural wording, and duplicates.
+- [x] **LOCAL / AI** Complete an AI-assisted first-pass benchmark audit.
+  - Reviewed 100 prompts per class for labels, ambiguity, wording, and
+    duplicates.
   - Output: `paper/benchmark_audit.csv`
-  - Status: deferred until a human reviewer is available; an incomplete local
-    audit file must not be treated as evidence.
+  - Status: all 400 rows are marked `review_method=ai_first_pass` and
+    `human_verified=no`.
+
+- [ ] **LOCAL / HUMAN** Verify the AI-assisted benchmark audit.
+  - Review at least 100 prompts per class.
+  - Correct any AI judgments about ambiguity, labels, wording, or duplicates.
+  - Output: `paper/benchmark_audit.csv`
+  - Status: deferred; the AI first pass must not be described as an independent
+    human audit.
 
 - [ ] **LARGE GPU** Replicate key L26H4 and steering effects without 4-bit
   quantization.
