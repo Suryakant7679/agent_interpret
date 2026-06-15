@@ -70,6 +70,21 @@ bash scripts/run_qwen_patching_seeds.sh 2>&1 \
 The checkpoint passes only when
 `outputs/patching/seeds/summary.json` reports `"all_seeds_passed": true`.
 
+## 1c. L26H4 prompt-sampling replication
+
+Shuffle the held-out validation pool independently for four seeds and validate
+L26H4 against matched random-head controls:
+
+```bash
+mkdir -p outputs/ablations/l26h4_seeds
+bash scripts/run_qwen_l26h4_seeds.sh 2>&1 \
+  | tee outputs/ablations/l26h4_seeds/run.log
+```
+
+The checkpoint passes only when
+`outputs/ablations/l26h4_seeds/summary.json` reports
+`"all_seeds_passed": true`.
+
 ## 1b. Counterfactual challenge set
 
 Run all Stage 2 conditions with:

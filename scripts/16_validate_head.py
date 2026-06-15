@@ -37,6 +37,11 @@ def main() -> None:
     parser.add_argument("--samples-per-label", type=int, default=32)
     parser.add_argument("--random-heads", type=int, default=20)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--shuffle-prompts",
+        action="store_true",
+        help="Shuffle each label's prompt pool with --seed before sampling.",
+    )
     parser.add_argument("--load-in-4bit", action="store_true")
     args = parser.parse_args()
 
@@ -106,8 +111,11 @@ def main() -> None:
     all_rows = list(read_jsonl(args.input))
     results = {}
     for label in LABELS:
+        label_rows = [row for row in all_rows if row["label"] == label]
+        if args.shuffle_prompts:
+            rng.shuffle(label_rows)
         examples = []
-        for row in (item for item in all_rows if item["label"] == label):
+        for row in label_rows:
             inputs = tokenize(row)
             with torch.inference_mode():
                 baseline = margin(model(**inputs, use_cache=False).logits, label)
@@ -179,6 +187,8 @@ def main() -> None:
         "head": args.head,
         "random_heads": random_heads,
         "samples_per_label": args.samples_per_label,
+        "seed": args.seed,
+        "shuffle_prompts": args.shuffle_prompts,
         "calculator_drop": calculator_drop,
         "largest_unrelated_drop": unrelated_drop,
         "specificity_score": calculator_drop - unrelated_drop,
