@@ -10,8 +10,19 @@ controls or replication.
   are unique, and exclude the identified boilerplate phrases `today`, `exact
   result`, and `each value`.
 - Mean prompt lengths are closely matched: 47.12 words for web search, 49.00
-  for calculator, 47.91 for Python, and 43.62 for none. This benchmark has not
-  yet been evaluated and therefore supports no behavioral or probe claim.
+  for calculator, 47.91 for Python, and 43.62 for none.
+- On the lexical-control benchmark, Qwen2.5-7B reaches accuracy 0.665 and
+  macro-F1 0.593 over 400 prompts, with no invalid outputs.
+- The model sends all 100 calculator prompts to Python. It correctly selects
+  Python for all 100 Python prompts, selects none for 81/100 none prompts, and
+  selects web search for 85/100 web-search prompts.
+- A residual probe trained on the original training templates and evaluated on
+  256 balanced lexical-control prompts reaches its best macro-F1 of 0.905 at
+  layer 27. Layer 0 is at 0.100, the first-five-layer mean is 0.451, and the
+  last-five-layer mean is 0.762.
+- The corresponding MLP-output probe is non-monotonic: layer 0 reaches
+  macro-F1 0.663, layers 11 and 12 reach 0.996 and 1.000, and the last-five
+  layers average 0.742.
 - Qwen2.5-7B-Instruct smoke behavior: accuracy 0.90, macro-F1 0.896.
 - Smoke errors: all four large-multiplication prompts selected Python instead
   of calculator.
@@ -139,11 +150,19 @@ controls or replication.
   per-example monotonic dose-response.
 - Middle-layer OOD probe errors frequently map web-search exchange-rate
   prompts to calculator before late layers separate them.
+- Lexical control weakens the claim that probe success is solely template
+  memorization: held-out residual decoding is strongest at layer 27. However,
+  perfect MLP decoding at layer 12 and substantial MLP layer-0 performance
+  show that class-relevant lexical/task information is also available earlier.
+- The lexical-control behavior result strengthens the calculator-versus-Python
+  confusion finding: exact single-expression arithmetic is routed to Python
+  on every tested prompt under the shared framing.
 
 ## Not yet established
 
 - No individual MLP neuron has yet shown replicated causal necessity.
-- The representation generalizes beyond distinctive synthetic templates.
+- The lexical-control probes establish cross-template decodability, but not
+  that the decoded features are themselves causal.
 - The result has not yet replicated across scales or model families.
 - Quantized and full-precision interventions have equivalent effects.
 - The challenge probe is not valid evidence for late emergence: residual
@@ -158,9 +177,6 @@ controls or replication.
 
 ## Required before submission
 
-- Counterfactual challenge-set behavior and probing.
-- Replace the current challenge probe with stricter lexical/template controls
-  before using it to make claims about layer-wise emergence.
 - True intermediate-neuron and attention-head ablation with random controls.
 - Analyze L26H4 attention patterns and interactions with late residual
   calculator directions.

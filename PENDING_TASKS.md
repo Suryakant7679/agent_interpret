@@ -41,7 +41,7 @@ expected output exists and has been inspected.
   - Checkpoint: labels remain balanced and prompts pass manual review.
   - Output: `data/lexical_control/`
 
-- [ ] Evaluate behavior and probes on the lexical-control benchmark.
+- [x] Evaluate behavior and probes on the lexical-control benchmark.
   - Checkpoint: distinguish early lexical decoding from late tool decisions.
   - Output: `outputs/behavior/qwen2_5_7b_lexical_control.*`
   - Output: `outputs/probes/qwen2_5_7b_lexical_control/`
