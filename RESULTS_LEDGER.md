@@ -75,6 +75,13 @@ controls or replication.
 - Against 20 same-layer random-head controls, the L26H4 calculator effect is
   significant on both held-out sets (paired permutation p < 0.00001).
   Specificity scores are 2.668 on validation and 2.695 on challenge.
+- L26H4 necessity and specificity replicate across independently shuffled
+  validation samples at seeds 7, 21, 84, and 123. Calculator-margin effects
+  range from -2.953 to -2.840 logits, with every 95% bootstrap interval fully
+  below zero.
+- Across those four prompt-sampling seeds, the mean calculator effect is
+  -2.904 logits and the mean calculator flip rate is 69.5%. Ablation causes
+  zero web-search, Python, or none decision flips across all four runs.
 - High-dose calculator-direction steering at layer 26 produces monotonic
   behavioral rescue on every one of 32 paired calculator-to-Python errors:
   flip rates are 21.875%, 50%, 84.375%, and 100% at alpha 24, 32, 48, and 64.

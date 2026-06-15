@@ -30,7 +30,7 @@ expected output exists and has been inspected.
   - Checkpoint: treatment remains stronger than Python and none controls.
   - Output: `outputs/patching/seeds/`
 
-- [ ] Repeat L26H4 validation with multiple prompt-sampling seeds.
+- [x] Repeat L26H4 validation with multiple prompt-sampling seeds.
   - Checkpoint: calculator margin remains strongly negative after ablation.
   - Checkpoint: unrelated tool decisions remain stable.
   - Output: `outputs/ablations/l26h4_seeds/`
