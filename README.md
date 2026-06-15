@@ -129,9 +129,11 @@ demonstrates a causal effect.
 ## Research model order
 
 1. `Qwen/Qwen2.5-7B-Instruct`: full primary analysis.
-2. `Qwen/Qwen2.5-14B-Instruct`: same-family scaling analysis.
-3. `mistralai/Mistral-7B-Instruct-v0.3`: cross-family comparison.
-4. `Qwen/Qwen2.5-Coder-7B-Instruct`: focused Python/code analysis.
+2. `Qwen/Qwen2.5-Coder-7B-Instruct`: local 4-bit specialization comparison.
+3. `mistralai/Mistral-7B-Instruct-v0.3`: local 4-bit cross-family comparison.
+4. `Qwen/Qwen2.5-14B-Instruct`: deferred large-GPU scaling analysis.
 
 The locally available Qwen 3.5 model is useful for benchmark and behavioral
 pipeline validation, but it does not replace the paper's primary model.
+See `PENDING_TASKS.md` for the authoritative **LOCAL** versus **LARGE GPU**
+execution split.

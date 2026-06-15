@@ -1,5 +1,9 @@
 # Large-GPU Quickstart
 
+This document is the handoff for tasks marked **LARGE GPU** in
+[`PENDING_TASKS.md`](PENDING_TASKS.md). The current RTX 3060 12 GB machine
+should continue only with tasks marked **LOCAL**.
+
 ## Clone and create the environment
 
 ```bash
@@ -83,6 +87,23 @@ bash scripts/run_qwen_l26h4_order.sh
 Some later stages depend on outputs from earlier stages. The authoritative
 sequence and expected files are documented in
 [`EXPERIMENTS.md`](EXPERIMENTS.md).
+
+## Deferred large-GPU work
+
+Run these only on the larger machine:
+
+1. Full-precision L26H4 validation and calculator-direction steering.
+2. Qwen2.5-14B behavioral evaluation and reduced causal pipeline.
+3. Cross-model component comparison after the 14B outputs exist.
+
+Recommended capacity:
+
+- 24 GB VRAM: minimum target for full-precision 7B checks and quantized 14B.
+- 48 GB or more: preferred for 14B activation extraction, patching, and
+  ablation without aggressive offload.
+
+The RTX 3060 remains suitable for Qwen2.5-Coder-7B and Mistral-7B-Instruct in
+4-bit, plus all statistics, figures, and paper work.
 
 ## Progress tracking
 
