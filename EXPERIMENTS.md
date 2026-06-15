@@ -97,6 +97,18 @@ Inspect `data/lexical_control/audit.json`, then complete the review columns in
 `data/lexical_control/manual_review.csv`. Do not mark the benchmark checkpoint
 complete from automatic checks alone.
 
+Evaluate Qwen2.5-7B behavior and held-out residual/MLP probes with:
+
+```bash
+mkdir -p outputs/logs
+bash scripts/run_qwen_lexical_control.sh 2>&1 \
+  | tee outputs/logs/qwen2_5_7b_lexical_control.log
+```
+
+Inspect `outputs/probes/qwen2_5_7b_lexical_control/summary.json` before marking
+the evaluation checkpoint complete. Probe performance is a scientific result,
+so the summary reports early and late layers without imposing a pass threshold.
+
 ## 1b. Counterfactual challenge set
 
 Run all Stage 2 conditions with:
