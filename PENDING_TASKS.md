@@ -1,6 +1,6 @@
 # Paper Checkpoint
 
-Last updated: 2026-06-15
+Last updated: 2026-06-16
 
 Use this file as the single progress tracker. Check an item only after its
 expected output exists and has been inspected.
@@ -83,6 +83,8 @@ expected output exists and has been inspected.
     cross-family causal evidence, while neuron ablation increases the
     calculator margin rather than suppressing it.
 
+Status: all RTX 3060-compatible cross-model replication items are complete.
+
 ## Pending: Large-GPU Replication
 
 - [ ] **LARGE GPU** Run Qwen2.5-14B behavioral evaluation and reduced pipeline.
@@ -100,7 +102,7 @@ expected output exists and has been inspected.
 
 - [x] **LOCAL / CPU** Aggregate completed multi-seed experiments.
 - [x] **LOCAL / CPU** Apply multiple-comparison corrections where relevant.
-- [ ] **LOCAL / CPU** Report bootstrap confidence intervals and paired tests
+- [x] **LOCAL / CPU** Report bootstrap confidence intervals and paired tests
   consistently.
 - [x] **LOCAL / CPU** Produce behavioral confusion matrices.
 - [x] **LOCAL / CPU** Produce layer-wise probe figures.
@@ -108,8 +110,10 @@ expected output exists and has been inspected.
 - [x] **LOCAL / CPU** Produce steering dose-response curves.
 - [x] **LOCAL / CPU** Produce L26H4 necessity and specificity figures.
 - [x] **LOCAL / CPU** Produce attention-pattern visualization.
-- [ ] **LARGE GPU / ANALYSIS** Produce cross-model comparison tables after all
-  required model runs finish.
+- [x] **LOCAL / CPU** Produce local cross-model comparison tables for
+  Qwen2.5-7B, Qwen2.5-Coder-7B, and Mistral-7B.
+- [ ] **LARGE GPU / ANALYSIS** Extend cross-model comparison tables after
+  full-precision and 14B runs finish.
 - [x] **LOCAL / CPU** Copy completed figures into `paper/figures/`.
 
 ## Pending: Local Paper Work

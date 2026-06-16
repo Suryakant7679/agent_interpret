@@ -99,6 +99,7 @@ def write_model_table(models: list[dict], tables: Path) -> list[dict]:
             "model": model["name"],
             "lexical_accuracy": behavior["accuracy"],
             "lexical_macro_f1": behavior["macro_f1"],
+            "lexical_invalid_outputs": behavior["invalid_outputs"],
             "calculator_recall": behavior["per_label"]["calculator"]["recall"],
             "python_recall": behavior["per_label"]["python"]["recall"],
             "calculator_to_python": behavior["confusion_matrix"]["calculator"][
@@ -201,7 +202,8 @@ def plot_confusions(models: list[dict], figures: Path, plt) -> None:
         for row in range(4):
             for column in range(4):
                 axis.text(column, row, str(matrix[row, column]), ha="center", va="center")
-        axis.set_title(model["name"])
+        invalid = metrics["invalid_outputs"]
+        axis.set_title(f"{model['name']}\ninvalid={invalid}")
         axis.set_xticks(range(4), LABELS, rotation=35, ha="right")
         axis.set_yticks(range(4), LABELS)
         axis.set_xlabel("Predicted")

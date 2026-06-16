@@ -1,6 +1,7 @@
 # Tool Circuit Interpretability
 
-This repository implements the first runnable stages of ToolUseCircuitBench:
+This repository implements ToolUseCircuitBench experiments for studying
+tool-selection circuits in instruction-tuned language models:
 
 1. Build a controlled benchmark for `web_search`, `calculator`, `python`, and
    `none`.
@@ -8,15 +9,29 @@ This repository implements the first runnable stages of ToolUseCircuitBench:
 3. Extract residual-stream and MLP activations from Hugging Face causal LMs.
 4. Train layer-wise linear probes and compute tool directions.
 
-The causal experiments from the research plan (activation patching, neuron
-ablation, and head ablation) should be run after selecting a model that has
-strong baseline tool-selection accuracy.
+The current GitHub state includes the completed local RTX 3060 analysis for
+three 7B-class models: `Qwen2.5-7B`, `Qwen2.5-Coder-7B`, and `Mistral-7B`.
+Remaining large-model and full-precision work is separated in the task tracker.
 
-The complete staged execution plan is in [EXPERIMENTS.md](EXPERIMENTS.md).
-Current progress and remaining checkpoints are tracked in
-[PENDING_TASKS.md](PENDING_TASKS.md).
-Instructions for cloning onto a larger GPU machine are in
-[GPU_QUICKSTART.md](GPU_QUICKSTART.md).
+## Inspect Current Results
+
+Start here:
+
+| Need | File or folder |
+|---|---|
+| Result map and inspection guide | [RESULTS_INDEX.md](RESULTS_INDEX.md) |
+| Completed observations and limitations | [RESULTS_LEDGER.md](RESULTS_LEDGER.md) |
+| Pending tasks with required hardware | [PENDING_TASKS.md](PENDING_TASKS.md) |
+| Large-GPU handoff commands | [GPU_QUICKSTART.md](GPU_QUICKSTART.md) |
+| Local paper figures | [paper/figures/](paper/figures/) |
+| Local paper tables | [paper/tables/](paper/tables/) |
+| Local report summary | [paper/local_report.summary.json](paper/local_report.summary.json) |
+| Complete staged execution plan | [EXPERIMENTS.md](EXPERIMENTS.md) |
+
+The local report currently includes all three local models. Mistral controlled
+calculator-to-Python patching is recorded as not available because there were
+no calculator-to-Python target errors in its OOD run; its component ablations
+are still included in the cross-model report.
 
 ## Quick start with local Ollama Qwen
 
