@@ -31,6 +31,14 @@ controls or replication.
 - On held-out lexical-control prompts, the Coder residual probe reaches
   macro-F1 1.0 first at layer 11 and the MLP-output probe reaches 1.0 first at
   layer 9.
+- Mistral-7B-Instruct-v0.3 reaches standard-test accuracy 0.803 and OOD
+  accuracy 0.797 in 4-bit inference, but with many invalid outputs
+  (134/1000 standard, 175/1000 OOD). It keeps calculator recall at 1.0 on
+  both standard and OOD sets, so the calculator-to-Python target-error set is
+  empty for controlled patching.
+- Mistral lexical-control behavior is weak: accuracy 0.365, macro-F1 0.369,
+  and 206/400 invalid outputs. Its residual probe still reaches macro-F1 1.0
+  at layer 16, and the MLP-output probe reaches macro-F1 1.0 at layer 15.
 - A residual probe trained on the original training templates and evaluated on
   256 balanced lexical-control prompts reaches its best macro-F1 of 0.905 at
   layer 27. Layer 0 is at 0.100, the first-five-layer mean is 0.451, and the

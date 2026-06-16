@@ -41,16 +41,35 @@ def main() -> None:
     parser.add_argument("--lexical-behavior", type=Path, required=True)
     parser.add_argument("--residual-probe", type=Path, required=True)
     parser.add_argument("--mlp-probe", type=Path, required=True)
-    parser.add_argument("--patching-comparison", type=Path, required=True)
+    parser.add_argument("--patching-comparison", type=Path)
+    parser.add_argument("--patching-skipped", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
-    with args.patching_comparison.open(newline="", encoding="utf-8") as handle:
-        patching_rows = list(csv.DictReader(handle))
-    strongest = max(
-        patching_rows,
-        key=lambda row: float(row["treatment_mean_effect"]),
-    )
+    if args.patching_comparison:
+        with args.patching_comparison.open(newline="", encoding="utf-8") as handle:
+            patching_rows = list(csv.DictReader(handle))
+        strongest = max(
+            patching_rows,
+            key=lambda row: float(row["treatment_mean_effect"]),
+        )
+        controlled_patching = {
+            "status": "completed",
+            "best_layer": int(strongest["layer"]),
+            "treatment_mean_effect": float(strongest["treatment_mean_effect"]),
+            "treatment_flip_rate": float(strongest["treatment_flip_rate"]),
+            "delta_vs_python": float(strongest["delta_vs_python"]),
+            "p_vs_python": float(strongest["p_vs_python"]),
+            "delta_vs_none": float(strongest["delta_vs_none"]),
+            "p_vs_none": float(strongest["p_vs_none"]),
+        }
+    elif args.patching_skipped:
+        controlled_patching = json.loads(args.patching_skipped.read_text())
+    else:
+        controlled_patching = {
+            "status": "not_available",
+            "reason": "No controlled patching comparison was provided.",
+        }
 
     summary = {
         "model": args.model,
@@ -63,15 +82,7 @@ def main() -> None:
             "residual": probe_summary(args.residual_probe),
             "mlp": probe_summary(args.mlp_probe),
         },
-        "controlled_patching": {
-            "best_layer": int(strongest["layer"]),
-            "treatment_mean_effect": float(strongest["treatment_mean_effect"]),
-            "treatment_flip_rate": float(strongest["treatment_flip_rate"]),
-            "delta_vs_python": float(strongest["delta_vs_python"]),
-            "p_vs_python": float(strongest["p_vs_python"]),
-            "delta_vs_none": float(strongest["delta_vs_none"]),
-            "p_vs_none": float(strongest["p_vs_none"]),
-        },
+        "controlled_patching": controlled_patching,
         "checkpoint_note": (
             "Inspect behavior competence before interpreting probes or patching. "
             "A causal replication requires positive treatment deltas against "

@@ -74,10 +74,13 @@ expected output exists and has been inspected.
   - Focus: calculator versus Python decisions.
   - Checkpoint: compare Python-tool bias against general Qwen2.5-7B.
 
-- [ ] **LOCAL** Run Mistral-7B-Instruct-v0.3 behavioral evaluation and reduced
-  pipeline in 4-bit.
-  - Focus: probes, directions, patching, and head ablation.
-  - Checkpoint: determine whether the mechanism is cross-family.
+- [ ] **LOCAL** Run Mistral-7B-Instruct-v0.3 component ablations and refresh
+  the local report.
+  - Done: behavior, lexical-control probes, directions, and summary.
+  - Note: controlled calculator-to-Python patching is not applicable because
+    the OOD targets contain no calculator-to-Python errors for Mistral.
+  - Checkpoint: determine whether component ablation gives usable
+    cross-family evidence on this GPU.
 
 ## Pending: Large-GPU Replication
 

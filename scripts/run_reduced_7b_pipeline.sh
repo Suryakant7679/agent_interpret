@@ -98,19 +98,57 @@ run_patching() {
     --load-in-4bit
 }
 
-run_patching calculator "outputs/patching/${PREFIX}_calculator_source.json"
-run_patching python "outputs/patching/${PREFIX}_python_control.json"
-run_patching none "outputs/patching/${PREFIX}_none_control.json"
+PATCHING_SKIPPED="outputs/patching/${PREFIX}_controlled/patching_skipped.json"
+PATCHING_COMPARISON="outputs/patching/${PREFIX}_controlled/patching_control_comparison.csv"
 
-python scripts/12_compare_patching_controls.py \
-  --treatment "outputs/patching/${PREFIX}_calculator_source.json" \
-  --controls "outputs/patching/${PREFIX}_python_control.json" \
-             "outputs/patching/${PREFIX}_none_control.json" \
-  --output-dir "outputs/patching/${PREFIX}_controlled" \
-  --seed "$SEED"
+if [[ "${ALLOW_PATCHING_SKIP:-0}" == "1" ]]; then
+  set +e
+  run_patching calculator "outputs/patching/${PREFIX}_calculator_source.json"
+  calculator_status=$?
+  run_patching python "outputs/patching/${PREFIX}_python_control.json"
+  python_status=$?
+  run_patching none "outputs/patching/${PREFIX}_none_control.json"
+  none_status=$?
+  set -e
+
+  if [[ "$calculator_status" -eq 0 && "$python_status" -eq 0 && "$none_status" -eq 0 ]]; then
+    python scripts/12_compare_patching_controls.py \
+      --treatment "outputs/patching/${PREFIX}_calculator_source.json" \
+      --controls "outputs/patching/${PREFIX}_python_control.json" \
+                 "outputs/patching/${PREFIX}_none_control.json" \
+      --output-dir "outputs/patching/${PREFIX}_controlled" \
+      --seed "$SEED"
+  else
+    cat > "$PATCHING_SKIPPED" <<JSON
+{
+  "status": "not_available",
+  "reason": "No usable controlled patching pairs were found for the configured positive/negative labels.",
+  "positive_label": "calculator",
+  "negative_label": "python",
+  "source_status": {
+    "calculator": $calculator_status,
+    "python": $python_status,
+    "none": $none_status
+  }
+}
+JSON
+    echo "Controlled patching not available for $MODEL; wrote $PATCHING_SKIPPED"
+  fi
+else
+  run_patching calculator "outputs/patching/${PREFIX}_calculator_source.json"
+  run_patching python "outputs/patching/${PREFIX}_python_control.json"
+  run_patching none "outputs/patching/${PREFIX}_none_control.json"
+
+  python scripts/12_compare_patching_controls.py \
+    --treatment "outputs/patching/${PREFIX}_calculator_source.json" \
+    --controls "outputs/patching/${PREFIX}_python_control.json" \
+               "outputs/patching/${PREFIX}_none_control.json" \
+    --output-dir "outputs/patching/${PREFIX}_controlled" \
+    --seed "$SEED"
+fi
 
 echo "Stage 5/5: final summary"
-python scripts/27_summarize_cross_model.py \
+summary_args=(
   --model "$MODEL" \
   --test-behavior "outputs/behavior/${PREFIX}_test.metrics.json" \
   --ood-behavior "outputs/behavior/${PREFIX}_ood.metrics.json" \
@@ -119,9 +157,16 @@ python scripts/27_summarize_cross_model.py \
     "outputs/probes/${PREFIX}_lexical_control/residual_probe_metrics.json" \
   --mlp-probe \
     "outputs/probes/${PREFIX}_lexical_control_mlp/mlp_probe_metrics.json" \
-  --patching-comparison \
-    "outputs/patching/${PREFIX}_controlled/patching_control_comparison.csv" \
   --output "outputs/${PREFIX}_summary.json"
+)
+
+if [[ -f "$PATCHING_COMPARISON" ]]; then
+  summary_args+=(--patching-comparison "$PATCHING_COMPARISON")
+elif [[ -f "$PATCHING_SKIPPED" ]]; then
+  summary_args+=(--patching-skipped "$PATCHING_SKIPPED")
+fi
+
+python scripts/27_summarize_cross_model.py "${summary_args[@]}"
 
 echo "Reduced 7B pipeline complete for $MODEL."
 echo "Summary: outputs/${PREFIX}_summary.json"
