@@ -1,9 +1,10 @@
 {
   "models_included": [
     "Qwen2.5-7B",
-    "Qwen2.5-Coder-7B"
+    "Qwen2.5-Coder-7B",
+    "Mistral-7B"
   ],
-  "model_table_rows": 2,
+  "model_table_rows": 3,
   "statistical_tests": 4,
   "figures": [
     "behavior_confusion_matrices.png",

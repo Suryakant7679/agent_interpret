@@ -39,6 +39,12 @@ controls or replication.
 - Mistral lexical-control behavior is weak: accuracy 0.365, macro-F1 0.369,
   and 206/400 invalid outputs. Its residual probe still reaches macro-F1 1.0
   at layer 16, and the MLP-output probe reaches macro-F1 1.0 at layer 15.
+- Mistral component ablation gives mixed but useful cross-family evidence.
+  Top-ranked calculator heads strongly reduce the calculator margin
+  (mean effect -6.492, 95% CI [-6.604, -6.375], random-control mean -0.353,
+  paired permutation p = 0.00001). Top-ranked calculator neurons instead
+  increase the calculator margin (mean effect 2.512, 95% CI [2.479, 2.545],
+  random-control mean 0.005, paired permutation p = 0.00001).
 - A residual probe trained on the original training templates and evaluated on
   256 balanced lexical-control prompts reaches its best macro-F1 of 0.905 at
   layer 27. Layer 0 is at 0.100, the first-five-layer mean is 0.451, and the
