@@ -1,6 +1,6 @@
 # Paper Checkpoint
 
-Last updated: 2026-06-16
+Last updated: 2026-06-17
 
 Use this file as the single progress tracker. Check an item only after its
 expected output exists and has been inspected.
@@ -33,7 +33,7 @@ expected output exists and has been inspected.
 - [x] Verify L26H4 robustness across prompt-order permutations.
 - [x] Maintain verified findings in `RESULTS_LEDGER.md`.
 
-## Pending: Qwen2.5-7B Robustness
+## Completed: Qwen2.5-7B Local Robustness
 
 - [x] Repeat controlled 32-pair patching with seeds `7`, `21`, `84`, and `123`.
   - Checkpoint: treatment remains stronger than Python and none controls.
@@ -67,7 +67,7 @@ expected output exists and has been inspected.
   - Target: at least 24 GB VRAM; 48 GB preferred.
   - Checkpoint: effect direction and approximate magnitude survive.
 
-## Pending: Local Cross-Model Replication
+## Completed: Local Cross-Model Replication
 
 - [x] **LOCAL** Run Qwen2.5-Coder-7B behavioral evaluation and reduced causal
   analysis in 4-bit.
@@ -98,7 +98,7 @@ Status: all RTX 3060-compatible cross-model replication items are complete.
   - Causal effect size.
   - Error patterns.
 
-## Pending: Local Statistics And Figures
+## Completed: Local Statistics And Figures
 
 - [x] **LOCAL / CPU** Aggregate completed multi-seed experiments.
 - [x] **LOCAL / CPU** Apply multiple-comparison corrections where relevant.
@@ -112,9 +112,12 @@ Status: all RTX 3060-compatible cross-model replication items are complete.
 - [x] **LOCAL / CPU** Produce attention-pattern visualization.
 - [x] **LOCAL / CPU** Produce local cross-model comparison tables for
   Qwen2.5-7B, Qwen2.5-Coder-7B, and Mistral-7B.
+- [x] **LOCAL / CPU** Copy completed figures into `paper/figures/`.
+
+## Pending: Large-GPU Statistics And Figures
+
 - [ ] **LARGE GPU / ANALYSIS** Extend cross-model comparison tables after
   full-precision and 14B runs finish.
-- [x] **LOCAL / CPU** Copy completed figures into `paper/figures/`.
 
 ## Pending: Local Paper Work
 
@@ -140,11 +143,11 @@ Status: all RTX 3060-compatible cross-model replication items are complete.
 
 Do not mark the project submission-ready until all are checked:
 
-- [ ] Main-model results replicate across seeds.
-- [ ] Lexical-control benchmark passes.
-- [ ] At least one cross-family model replicates the core causal result.
-- [ ] Same-family scale or specialization comparison is complete.
+- [x] Main-model results replicate across seeds.
+- [x] Lexical-control benchmark passes.
+- [x] At least one cross-family model replicates the core causal result.
+- [x] Same-family scale or specialization comparison is complete.
 - [ ] Full-precision check is complete.
-- [ ] Figures and statistical tables are final.
+- [ ] Figures and statistical tables are final after large-GPU work.
 - [ ] Every paper claim maps to a saved result file.
 - [ ] Limitations clearly disclose synthetic prompts and quantized inference.
